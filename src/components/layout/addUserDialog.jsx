@@ -11,20 +11,26 @@ import React from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
+import useUserAddModal from "@/hooks/useUserAdd";
+import useUserFoundModal from "@/hooks/useUserFound";
 
-export const AddUserDialog = ({ isOpen, setIsOpen }) => {
+export const AddUserDialog = () => {
   const { toast } = useToast();
+  const userAdd = useUserAddModal();
+  const userFound = useUserFoundModal();
   const onHandleClose = () => {
-    setIsOpen(false);
+    userAdd.onClose();
   };
   const onHandleAdd = () => {
-    toast({
-      title: "Scheduled: Catch up",
-      description: "Friday, February 10, 2023 at 5:57 PM",
-    });
+    // toast({
+    //   title: "Scheduled: Catch up",
+    //   description: "Friday, February 10, 2023 at 5:57 PM",
+    // });
+    userFound.onOpen();
+    userAdd.onClose();
   };
   return (
-    <Dialog open={isOpen} onOpenChange={onHandleClose}>
+    <Dialog open={userAdd.isOpen} onOpenChange={onHandleClose}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle className="mb-4">
